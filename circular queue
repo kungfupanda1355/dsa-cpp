@@ -1,0 +1,80 @@
+// Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+#define MAX 5
+
+class circularqueue{
+  int items[MAX];
+  int front,rear;
+  public:
+  circularqueue(){
+      front=-1;
+      rear=-1;
+  }
+  int isfull(){
+      return (rear+1)%MAX==front;
+  }
+  int isempty(){
+      return front==-1;
+  }
+  void enqueue(int value){
+      if(isfull()){
+          cout<<"queue is full"<<endl;
+      }
+      if(isempty()){
+          front=0;
+      }
+      rear=(rear+1)%MAX;
+      items[rear]=value;
+      cout<<"enqueue :"<<value<<endl;
+  }
+  void dequeue(){
+      if(isempty()){
+          cout<<"queue is empty"<<endl;
+      }
+      int value=items[front];
+      if(front==rear){
+          front=rear=-1;
+      }
+      front=(front+1)%MAX;
+      cout<<"dequeue"<<value<<endl;
+  }
+  void display(){
+      if(isempty()){
+          cout<<"queue is empty"<<endl;
+      }
+      int i=front;
+      while(true){
+          cout<<items[i]<<endl;
+          if(i==rear)break;
+          i=(i+1)%MAX;
+      }
+  }
+  
+  void reverse_display(){
+      if(isempty()){
+          cout<<"queue is empty"<<endl;
+      }
+      int i=rear;
+      while(true){
+          cout<<items[i]<<endl;
+          if(i==front)break;
+          i=(i-1)%MAX;
+      }
+  }
+};
+int main() {
+   circularqueue q;
+   q.enqueue(10);
+     q.enqueue(20);
+       q.enqueue(30);
+       cout<<"before removing an element"<<endl;
+       q.display();
+       q.dequeue();
+       cout<<"after removing the element"<<endl;
+       q.display();
+       cout<<"reverse order:"<<endl;
+       q.reverse_display();
+       
+   
+}
